@@ -11,5 +11,8 @@ block content
     |  in 
     a(href=listing.category.url) #{listing.category.name}
     |  on #{listing.date_posted}
-  a(href=listing.url+'/update') Update Listing
-    a(href=listing.url+'/delete') Delete Listing
+  p Are you sure you want to delete the listing?
+  form(method="post") 
+    button(type="submit") Delete Listing
+    // TODO: Link should be styled to look like button
+    a(href=listing.url) No
