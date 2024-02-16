@@ -1,0 +1,47 @@
+extends layout
+
+block content
+    h1= title
+    if errors
+        ul
+            for error in errors
+                li #{error.msg}
+    form(method='POST')
+        div.form-group
+            label(for='owner') Owner:
+            select#owner.form-control(name='owner' required)
+                option(value='') --Please select an owner--
+                for own in owners
+                    //- Populating owner if given a listing variable
+                    if listing && own._id.toString() === listing.owner.toString()
+                        option(value=own._id selected) #{own.name}
+                    else 
+                        option(value=own._id) #{own.name}
+        div.form-group
+            label(for='name') Title:
+            //- Note that the listing repopulates the value for the title if backend validation fails.
+            //- Nested ternary is needed for some reason because I can't use short circuit '&&' ?
+            input#name.form-control(type='text', placeholder='Title of listing' name='name' value=(listing ? (listing.name===undefined ? '' : listing.name) : '') required)
+        div.form-group
+            label(for='price') Price:
+            //- Note that the listing repopulates the value for the price if backend validation fails
+            //- Nested ternary is needed for some reason because I can't use short circuit '&&' ?
+            input#price.form-control(type='number', placeholder='0' name='price' value=(listing ? (listing.price===undefined ? '' : listing.price) : '') required)
+        div.form-group
+            label(for='description') Description:
+            textarea#description.form-control(placeholder='Enter a description' name='description' required)
+                //- Note that the listing repopulates the value for the descreiption if backend validation fails
+                if listing && listing.details 
+                        | #{listing.details}
+        div.form-group
+            label Category:
+            div
+                for category in categories
+                    div(style='display: inline; padding-right:10px;')
+                        //- Populating category if given a listing variable
+                        if listing && category._id.toString() === listing.category.toString()
+                            input.radio-input(type='radio', name='category', id=category._id, value=category._id checked)
+                        else 
+                            input.radio-input(type='radio', name='category', id=category._id, value=category._id)
+                        label(for=category._id) &nbsp;#{category.name}
+        button(type="submit") Submit

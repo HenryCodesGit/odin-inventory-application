@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  if owners.length
+    ul
+      each owner in owners 
+          li
+              p #{owner.name}
+              p Active since #{owner.date_created}
+              a(href=owner.url) Active listings
+  else 
+    p There are no users!

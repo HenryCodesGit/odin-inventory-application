@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 #{title} - #{category.name}
+  if listingsInCategory.length
+    ul
+      each listing in listingsInCategory 
+          li
+              p #{listing.name}
+              p Price: #{listing.price}
+              p #{listing.details}
+              a(href=listing.url) Listing Details
+  else
+    p No listings exist for this category!

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 #{title} - #{owner.name}
+  if listingsByOwner.length
+    ul
+      each listing in listingsByOwner 
+          li
+              p #{listing.name}
+              p Price: #{listing.price}
+              p #{listing.details}
+              a(href=listing.url) Listing Details
+  else 
+   p There are no listings by this owner!

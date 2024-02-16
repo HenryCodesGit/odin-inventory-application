@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+
+  p Item: #{listing.name}
+  p Price: #{listing.price}
+  p Description: #{listing.details ? listing.details : 'Lister has not specified any additional info'}
+  p Listed by: 
+    a(href=listing.owner.url) #{listing.owner.name}
+    |  in 
+    a(href=listing.category.url) #{listing.category.name}
+    |  on #{listing.date_posted}

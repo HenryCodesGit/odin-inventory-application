@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  if listings.length
+    ul
+      each listing in listings 
+        li
+            p #{listing.category.name} - #{listing.name}
+            p Price: #{listing.price}
+            td
+            p #{listing.details}
+            a(href=listing.url) Listing Details
+  else 
+    p There are no listings!
